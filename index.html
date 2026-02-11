@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Yu-Gi-Oh Checklist Yugi + Kaiba (Completa)</title>
+
+<style>
+body {
+  background: #0a0a0a;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 24px;
+}
+
+.controls {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#busqueda {
+  width: 70%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+#filtroDeck {
+  padding: 8px;
+  font-size: 16px;
+}
+
+#stats {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.stat-box {
+  margin-top: 6px;
+}
+
+#listaCartas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+/* Carta */
+.carta {
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.carta img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.carta.seleccionada {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+label {
+  display: block;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<header>⭐ Checklist completa: Starter Deck Yugi + Kaiba ⭐</header>
+
+<div class="controls">
+  <input type="text" id="busqueda" placeholder="Buscar carta…">
+  <select id="filtroDeck">
+    <option value="todos">Todos los Decks</option>
+    <option value="yugi">Starter Deck Yugi</option>
+    <option value="kaiba">Starter Deck Kaiba</option>
+  </select>
+</div>
+
+<div id="stats">
+  <div>Total visibles: <span id="total">0</span></div>
+  <div class="stat-box">
+    ✅ Yugi marcadas: <span id="yugiSel">0</span> / 50 |
+    ✅ Kaiba marcadas: <span id="kaibaSel">0</span> / 48
+  </div>
+</div>
+
+<div id="listaCartas"></div>
+
+<script>
+const cartas = [
+
+// ===== STARTER DECK YUGI (50 CARTAS) =====
+{ id: "BIY-S001", nombre: "Mystical Elf", deck: "yugi" },
+{ id: "BIY-S002", nombre: "Feral Imp", deck: "yugi" },
+{ id: "BIY-S003", nombre: "Winged Dragon, Guardian of the Fortress #1", deck: "yugi" },
+{ id: "BIY-S004", nombre: "Summoned Skull", deck: "yugi" },
+{ id: "BIY-S005", nombre: "Beaver Warrior", deck: "yugi" },
+{ id: "BIY-S006", nombre: "Dark Magician", deck: "yugi" },
+{ id: "BIY-S007", nombre: "Gaia The Fierce Knight", deck: "yugi" },
+{ id: "BIY-S008", nombre: "Curse of Dragon", deck: "yugi" },
+{ id: "BIY-S009", nombre: "Celtic Guardian", deck: "yugi" },
+{ id: "BIY-S010", nombre: "Mammoth Graveyard", deck: "yugi" },
+{ id: "BIY-S011", nombre: "Great White", deck: "yugi" },
+{ id: "BIY-S012", nombre: "Silver Fang", deck: "yugi" },
+{ id: "BIY-S013", nombre: "Giant Soldier of Stone", deck: "yugi" },
+{ id: "BIY-S014", nombre: "Dragon Zombie", deck: "yugi" },
+{ id: "BIY-S015", nombre: "Doma the Angel of Silence", deck: "yugi" },
+{ id: "BIY-S016", nombre: "Ansatsu", deck: "yugi" },
+{ id: "BIY-S017", nombre: "Witty Phantom", deck: "yugi" },
+{ id: "BIY-S018", nombre: "Claw Reacher", deck: "yugi" },
+{ id: "BIY-S019", nombre: "Mystic Clown", deck: "yugi" },
+{ id: "BIY-S020", nombre: "Sword of Dark Destruction", deck: "yugi" },
+{ id: "BIY-S021", nombre: "Book of Secret Arts", deck: "yugi" },
+{ id: "BIY-S022", nombre: "Dark Hole", deck: "yugi" },
+{ id: "BIY-S023", nombre: "Dian Keto the Cure Master", deck: "yugi" },
+{ id: "BIY-S024", nombre: "Ancient Elf", deck: "yugi" },
+{ id: "BIY-S025", nombre: "Magical Ghost", deck: "yugi" },
+{ id: "BIY-S026", nombre: "Fissure", deck: "yugi" },
+{ id: "BIY-S027", nombre: "Trap Hole", deck: "yugi" },
+{ id: "BIY-S028", nombre: "Two-Pronged Attack", deck: "yugi" },
+{ id: "BIY-S029", nombre: "De-Spell", deck: "yugi" },
+{ id: "BIY-S030", nombre: "Monster Reborn", deck: "yugi" },
+{ id: "BIY-S031", nombre: "Reinforcements", deck: "yugi" },
+{ id: "BIY-S032", nombre: "Change of Heart", deck: "yugi" },
+{ id: "BIY-S033", nombre: "The Stern Mystic", deck: "yugi" },
+{ id: "BIY-S034", nombre: "Wall of Illusion", deck: "yugi" },
+{ id: "BIY-S035", nombre: "Neo the Magic Swordsman", deck: "yugi" },
+{ id: "BIY-S036", nombre: "Baron of the Fiend Sword", deck: "yugi" },
+{ id: "BIY-S037", nombre: "Man-Eating Treasure Chest", deck: "yugi" },
+{ id: "BIY-S038", nombre: "Sorcerer of the Doomed", deck: "yugi" },
+{ id: "BIY-S039", nombre: "Last Will", deck: "yugi" },
+{ id: "BIY-S040", nombre: "Waboku", deck: "yugi" },
+{ id: "BIY-S041", nombre: "Soul Exchange", deck: "yugi" },
+{ id: "BIY-S042", nombre: "Card Destruction", deck: "yugi" },
+{ id: "BIY-S043", nombre: "Trap Master", deck: "yugi" },
+{ id: "BIY-S044", nombre: "Dragon Capture Jar", deck: "yugi" },
+{ id: "BIY-S045", nombre: "Yami", deck: "yugi" },
+{ id: "BIY-S046", nombre: "Man-Eater Bug", deck: "yugi" },
+{ id: "BIY-S047", nombre: "Reverse Trap", deck: "yugi" },
+{ id: "BIY-S048", nombre: "Remove Trap", deck: "yugi" },
+{ id: "BIY-S049", nombre: "Castle Walls", deck: "yugi" },
+{ id: "BIY-S050", nombre: "Ultimate Offering", deck: "yugi" },
+
+// ===== STARTER DECK KAIBA (48 CARTAS) =====
+{ id: "BIK-S001", nombre: "Blue-Eyes White Dragon", deck: "kaiba" },
+{ id: "BIK-S002", nombre: "Hitotsu-Me Giant", deck: "kaiba" },
+{ id: "BIK-S003", nombre: "Ryu-Kishin", deck: "kaiba" },
+{ id: "BIK-S004", nombre: "The Wicked Worm Beast", deck: "kaiba" },
+{ id: "BIK-S005", nombre: "Battle Ox", deck: "kaiba" },
+{ id: "BIK-S006", nombre: "Koumori Dragon", deck: "kaiba" },
+{ id: "BIK-S007", nombre: "Judge Man", deck: "kaiba" },
+{ id: "BIK-S008", nombre: "Rogue Doll", deck: "kaiba" },
+{ id: "BIK-S009", nombre: "Kojikocy", deck: "kaiba" },
+{ id: "BIK-S010", nombre: "Uraby", deck: "kaiba" },
+{ id: "BIK-S011", nombre: "Gyakutenno Megami", deck: "kaiba" },
+{ id: "BIK-S012", nombre: "Mystic Horseman", deck: "kaiba" },
+{ id: "BIK-S013", nombre: "Terra the Terrible", deck: "kaiba" },
+{ id: "BIK-S014", nombre: "Dark Titan of Terror", deck: "kaiba" },
+{ id: "BIK-S015", nombre: "Dark Assailant", deck: "kaiba" },
+{ id: "BIK-S016", nombre: "Master & Expert", deck: "kaiba" },
+{ id: "BIK-S017", nombre: "Unknown Warrior of Fiend", deck: "kaiba" },
+{ id: "BIK-S018", nombre: "Mysterious Puppeteer", deck: "kaiba" },
+{ id: "BIK-S019", nombre: "Sogen", deck: "kaiba" },
+{ id: "BIK-S020", nombre: "Hane-Hane", deck: "kaiba" },
+{ id: "BIK-S021", nombre: "Dark Energy", deck: "kaiba" },
+{ id: "BIK-S022", nombre: "Invigoration", deck: "kaiba" },
+{ id: "BIK-S023", nombre: "Dark Hole", deck: "kaiba" },
+{ id: "BIK-S024", nombre: "Ookazi", deck: "kaiba" },
+{ id: "BIK-S025", nombre: "Ryu-Kishin Powered", deck: "kaiba" },
+{ id: "BIK-S026", nombre: "Swordstalker", deck: "kaiba" },
+{ id: "BIK-S027", nombre: "La Jinn the Mystical Genie of the Lamp", deck: "kaiba" },
+{ id: "BIK-S028", nombre: "Rude Kaiser", deck: "kaiba" },
+{ id: "BIK-S029", nombre: "Destroyer Golem", deck: "kaiba" },
+{ id: "BIK-S030", nombre: "Skull Red Bird", deck: "kaiba" },
+{ id: "BIK-S031", nombre: "D. Human", deck: "kaiba" },
+{ id: "BIK-S032", nombre: "Pale Beast", deck: "kaiba" },
+{ id: "BIK-S033", nombre: "Fissure", deck: "kaiba" },
+{ id: "BIK-S034", nombre: "Trap Hole", deck: "kaiba" },
+{ id: "BIK-S035", nombre: "Two-Pronged Attack", deck: "kaiba" },
+{ id: "BIK-S036", nombre: "De-Spell", deck: "kaiba" },
+{ id: "BIK-S037", nombre: "Monster Reborn", deck: "kaiba" },
+{ id: "BIK-S038", nombre: "The Inexperienced Spy", deck: "kaiba" },
+{ id: "BIK-S039", nombre: "Reinforcements", deck: "kaiba" },
+{ id: "BIK-S040", nombre: "Ancient Telescope", deck: "kaiba" },
+{ id: "BIK-S041", nombre: "Just Desserts", deck: "kaiba" },
+{ id: "BIK-S042", nombre: "Lord of D.", deck: "kaiba" },
+{ id: "BIK-S043", nombre: "The Flute of Summoning Dragon", deck: "kaiba" },
+{ id: "BIK-S044", nombre: "Trap Master", deck: "kaiba" },
+{ id: "BIK-S045", nombre: "Remove Trap", deck: "kaiba" },
+{ id: "BIK-S046", nombre: "Reverse Trap", deck: "kaiba" },
+{ id: "BIK-S047", nombre: "Castle Walls", deck: "kaiba" },
+{ id: "BIK-S048", nombre: "Ultimate Offering", deck: "kaiba" }
+];
+
+const contenedor = document.getElementById("listaCartas");
+const textoBusqueda = document.getElementById("busqueda");
+const filtroDeck = document.getElementById("filtroDeck");
+const spanTotal = document.getElementById("total");
+const spanYugi = document.getElementById("yugiSel");
+const spanKaiba = document.getElementById("kaibaSel");
+
+let guardado = JSON.parse(localStorage.getItem("yuGiChecklist")) || {};
+
+function contarPorDeck() {
+  let y = 0, k = 0;
+  cartas.forEach(c => {
+    if (guardado[c.id]) {
+      if (c.deck === "yugi") y++;
+      if (c.deck === "kaiba") k++;
+    }
+  });
+  spanYugi.textContent = y;
+  spanKaiba.textContent = k;
+}
+
+function dibujarCartas() {
+  const busq = textoBusqueda.value.toLowerCase();
+  const deck = filtroDeck.value;
+
+  contenedor.innerHTML = "";
+  let visibles = 0;
+
+  cartas.forEach(c => {
+    if (deck !== "todos" && c.deck !== deck) return;
+    if (!c.nombre.toLowerCase().includes(busq)) return;
+
+    visibles++;
+
+    const div = document.createElement("div");
+    div.className = "carta";
+    if (guardado[c.id]) div.classList.add("seleccionada");
+
+    const urlImg = `https://static.wikia.nocookie.net/yugioh/images/${c.id}.png`;
+
+    div.innerHTML = `
+      <img src="${urlImg}" alt="${c.nombre}">
+      <div>${c.nombre}</div>
+      <small>Deck: ${c.deck === "yugi" ? "Yugi" : "Kaiba"}</small>
+      <label>
+        <input type="checkbox" ${guardado[c.id] ? "checked" : ""}>
+        Seleccionada
+      </label>
+    `;
+
+    const chk = div.querySelector("input");
+    chk.addEventListener("change", () => {
+      if (chk.checked) guardado[c.id] = true;
+      else delete guardado[c.id];
+
+      localStorage.setItem("yuGiChecklist", JSON.stringify(guardado));
+      div.classList.toggle("seleccionada");
+      contarPorDeck();
+    });
+
+    contenedor.appendChild(div);
+  });
+
+  spanTotal.textContent = visibles;
+  contarPorDeck();
+}
+
+textoBusqueda.addEventListener("input", dibujarCartas);
+filtroDeck.addEventListener("change", dibujarCartas);
+
+dibujarCartas();
+</script>
+
+</body>
+</html>
